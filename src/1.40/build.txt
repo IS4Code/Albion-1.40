@@ -1,0 +1,2 @@
+-i -f rimg riko.png SMLPORT1.XLP:33 -p 1
+-i -f rimg kossotto.png 3DOBJEC4.XLZ:0 -p 13
