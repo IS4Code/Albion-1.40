@@ -1,3 +1,4 @@
+@echo off
 cd "%~dp0"
 
 rmdir tmp /S /Q
@@ -5,6 +6,7 @@ mkdir tmp
 
 for /d %%i in (src\*) do (
   echo %%~nxi
+  set VERSION=%%~nxi
   xcopy "%%i" "tmp\%%~nxi" /D /E /C /R /I /K /Y
   cd "tmp\%%~nxi"
   call ..\..\proc.bat build.txt
@@ -31,5 +33,9 @@ rmdir tmp /S /Q
 
 copy albtool.exe out\albtool.exe
 copy patch.bat out\patch.bat
+for /F "usebackq tokens=1,2 delims==" %%i in (`wmic os get LocalDateTime /VALUE 2^>NUL`) do if '.%%i.'=='.LocalDateTime.' set ldt=%%j
+set ldt=%ldt:~0,4%-%ldt:~4,2%-%ldt:~6,2% %ldt:~8,2%:%ldt:~10,2%:%ldt:~12,6%
+echo.>>out\patch.bat
+echo albtool.exe -v "%VERSION%" "%ldt%">>out\patch.bat
 
 PAUSE
