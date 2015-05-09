@@ -9,5 +9,3 @@ for /r XLDLIBS %%i in (*.pat, *.pat.gz) do (
   albtool.exe -c -f xlp "%%i" "%%~dpni.DAT"
   del "%%i"
 )
-del albtool.exe
-del patch.bat
